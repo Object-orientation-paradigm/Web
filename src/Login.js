@@ -1,6 +1,6 @@
-import React from "react";
-import { signin } from "./service/ApiService";
-import { Button, TextField, Grid, Link, Container, Typography } from "@material-ui/core";
+import React from 'react';
+import { login } from './service/ApiService';
+import { Button, TextField, Grid, Link, Container, Typography } from '@material-ui/core';
 
 class Login extends React.Component {
   constructor(props) {
@@ -11,16 +11,16 @@ class Login extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
-    const email = data.get("email");
-    const password = data.get("password");
+    const username = data.get('userName');
+    const password = data.get('password');
 
     // ApiService의 signin 메소드를 사용해 로그인
-    signin({ email: email, password: password });
+    login({ username: username, password: password });
   }
 
   render() {
     return (
-      <Container component="main" maxWidth="xs" style={{ marginTop: "8%" }}>
+      <Container component="main" maxWidth="xs" style={{ marginTop: '8%' }}>
         <Grid container spacing={2}>
           <Typography component="h1" variant="h5">
             로그인
@@ -34,10 +34,10 @@ class Login extends React.Component {
                 variant="outlined"
                 required
                 fullWidth
-                id="email"
-                label="이메일 주소"
-                name="email"
-                autoComplete="email"
+                id="userName"
+                label="이름"
+                name="userName"
+                autoComplete="userName"
               />
             </Grid>
             <Grid item xs={12}>
@@ -48,12 +48,16 @@ class Login extends React.Component {
                 id="password"
                 label="패스워드"
                 name="password"
-                type="password"
-                autoComplete="current-password"
+                autoComplete="password"
               />
             </Grid>
             <Grid item xs={12}>
-              <Button type="submit" fullWidth variant="contained" color="primary">
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+              >
                 로그인
               </Button>
             </Grid>
