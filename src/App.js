@@ -1,39 +1,37 @@
 import React from 'react';
-import Todo from './Todo';
+import { AppBar, Button, Container, Grid, List, Paper, Toolbar, Typography } from '@material-ui/core';
 import AddTodo from './AddTodo';
-import { Paper, List, Container, Grid, Button, AppBar, Toolbar, Typography } from '@material-ui/core';
 import './App.css';
+import Todo from './Todo';
 import { call, signout } from './service/ApiService';
+import commonApis from './service/commonApi';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      loading: true,
-    };
-  }
+  state = {
+    items: [],
+    loading: true,
+  };
 
   add = (item) => {
-    call("/todo", "POST", item).then((response) => {
+    commonApis.post("/todo", item).then((response) => {
       this.setState({ items: response.data });
     });
   };
 
   delete = (item) => {
-    call("/todo", "DELETE", item).then((response) => {
+    commonApis.post("/todo", item).then((response) => {
       this.setState({ items: response.data });
     });
   };
 
   update = (item) => {
-    call("/todo", "PUT", item).then((response) => {
+    commonApis.post("/todo", item).then((response) => {
       this.setState({ items: response.data });
     });
   };
 
   componentDidMount() {
-    call("/todo", "GET", null).then((response) => 
+    call("/api/todo", "GET", null).then((response) => 
       this.setState({ items: response.data, loading: false })
     );
   }
