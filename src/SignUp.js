@@ -1,6 +1,6 @@
-import React from 'react';
-import { Button, TextField, Link, Grid, Container, Typography } from '@material-ui/core';
-import { signup } from './service/ApiService';
+import React from "react";
+import { Button, TextField, Link, Grid, Container, Typography } from "@material-ui/core";
+import { signup } from "./service/ApiService";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -11,9 +11,9 @@ class SignUp extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
-    const username = data.get('username');
-    const email = data.get('email');
-    const password = data.get('password');
+    const username = data.get("username");
+    const email = data.get("email");
+    const password = data.get("password");
     signup({ email: email, username: username, password: password }).then(
       (response) => {
         window.location.href = "/login";
@@ -23,7 +23,7 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <Container component="main" maxWidth="xs" style={{ marginTop: '8%' }}>
+      <Container component="main" maxWidth="xs" style={{ marginTop: "8%" }}>
         <form noValidate onSubmit={this.handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -52,18 +52,19 @@ class SignUp extends React.Component {
                 fullWidth
                 id="email"
                 label="이메일 주소"
+                autoFocus
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                type="password" // 패스워드 입력 가리기
-                autoComplete="new-password"
+                autoComplete="current-password"
                 name="password"
                 variant="outlined"
                 required
                 fullWidth
                 id="password"
                 label="패스워드"
+                autoFocus
               />
             </Grid>
             <Grid item xs={12}>
