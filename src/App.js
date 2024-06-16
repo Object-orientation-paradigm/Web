@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Todo from './Todo';
 import AddTodo from './AddTodo';
@@ -15,34 +16,51 @@ class App extends React.Component {
   }
 
   add = (item) => {
-    call("/todo", "POST", item).then((response) => {
-      this.setState({ items: response.data });
-    });
+    call("/todo", "POST", item)
+      .then((response) => {
+        this.setState({ items: response.data });
+      })
+      .catch((error) => {
+        console.error("Error adding todo item:", error);
+      });
   };
 
   delete = (item) => {
-    call("/todo", "DELETE", item).then((response) => {
-      this.setState({ items: response.data });
-    });
+    call("/todo", "DELETE", item)
+      .then((response) => {
+        this.setState({ items: response.data });
+      })
+      .catch((error) => {
+        console.error("Error deleting todo item:", error);
+      });
   };
 
   update = (item) => {
-    call("/todo", "PUT", item).then((response) => {
-      this.setState({ items: response.data });
-    });
+    call("/todo", "PUT", item)
+      .then((response) => {
+        this.setState({ items: response.data });
+      })
+      .catch((error) => {
+        console.error("Error updating todo item:", error);
+      });
   };
 
   componentDidMount() {
-    call("/todo", "GET", null).then((response) => 
-      this.setState({ items: response.data, loading: false })
-    );
+    call("/todo", "GET", null)
+      .then((response) => {
+        this.setState({ items: response.data, loading: false });
+      })
+      .catch((error) => {
+        console.error("Error fetching todo items:", error);
+        this.setState({ loading: false });
+      });
   }
 
   render() {
-    var todoItems = this.state.items.length > 0 && (
+    const todoItems = this.state.items.length > 0 && (
       <Paper style={{ margin: 16 }}>
         <List>
-          {this.state.items.map((item, idx) => (
+          {this.state.items.map((item) => (
             <Todo
               item={item}
               key={item.id}
@@ -54,7 +72,7 @@ class App extends React.Component {
       </Paper>
     );
 
-    var navigationBar = (
+    const navigationBar = (
       <AppBar position="static">
         <Toolbar>
           <Grid justify="space-between" container>
@@ -71,7 +89,7 @@ class App extends React.Component {
       </AppBar>
     );
 
-    var todoListPage = (
+    const todoListPage = (
       <div>
         {navigationBar}
         <Container maxWidth="md">
@@ -81,8 +99,8 @@ class App extends React.Component {
       </div>
     );
 
-    var loadingPage = <h1>로딩중..</h1>;
-    var content = this.state.loading ? loadingPage : todoListPage;
+    const loadingPage = <h1>로딩중..</h1>;
+    const content = this.state.loading ? loadingPage : todoListPage;
 
     return (
       <div className="App">
