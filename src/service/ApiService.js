@@ -20,8 +20,9 @@ export function call(api, method, request) {
     options.body = JSON.stringify(request);
   }
   return fetch(options.url, options)
-    .then((response) =>
-      response.json().then((json) => {
+    .then((response) => 
+      response.text().then((text) => {
+        const json = text ? JSON.parse(text) : {};
         if (!response.ok) {
           return Promise.reject(json);
         }
